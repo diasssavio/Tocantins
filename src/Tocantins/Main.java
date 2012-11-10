@@ -2,12 +2,12 @@ package Tocantins;
 
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.swing.mxGraphComponent;
-import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.util.HashMap;
-import java.sql.ResultSet;
 import java.util.Random;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * Definição da classe Main
