@@ -70,7 +70,8 @@ public class Main extends JFrame
      */
     private void graphSettings()
     {
-        graph.setCellsDisconnectable( false );  // Disconnect edges and vertex
+        graph.setSplitEnabled( false );         // Split cells enabled?
+        graph.setCellsDisconnectable( false );  // Disconnect edges and vertexes?
         graph.setCellsEditable( false );        // Want to edit the value of a cell in the graph?
         graph.setCellsMovable( true );          // Moving cells in the graph. Note that an edge is also a cell.
         graph.setCellsResizable( false );       // Inhibit cell re-sizing.
