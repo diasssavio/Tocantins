@@ -49,7 +49,7 @@ public class RoadsForm extends JFrame
 
                 },
                 new String [] {
-                    "Origem", "Destino", "Distancia", "Sem Asfalto"
+                    "Origem", "Destino", "Distancia", "Asfalto"
                 }
             ) {
                 Class[] types = new Class [] {
@@ -67,6 +67,7 @@ public class RoadsForm extends JFrame
                     return canEdit [columnIndex];
                 }
             };
+        
         jTable1.setModel( edgesTable );
     }
     
@@ -79,7 +80,7 @@ public class RoadsForm extends JFrame
         resultSet = dbManager.getResultSet( "SELECT * FROM conexoes" );
         // Needs to add the last column name
         while( resultSet.next() )
-            edgesTable.addRow( new Object[] { resultSet.getString( "idConexoes" ), resultSet.getString( "Cidade" ), resultSet.getDouble( "Distancia" ), resultSet.getBoolean( "Sem_Asfalto" ) } );
+            edgesTable.addRow( new Object[] { resultSet.getString( "idConexoes" ), resultSet.getString( "Cidade" ), resultSet.getDouble( "Distancia" ), !resultSet.getBoolean( "Sem_Asfalto" ) } );
         
         resultSet.close();
         resultSet = null;

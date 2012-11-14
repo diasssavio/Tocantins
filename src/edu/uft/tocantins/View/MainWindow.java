@@ -6,8 +6,10 @@ import javax.swing.JOptionPane;
 import java.sql.SQLException;
 
 /**
- *
- * @author Savio Dias
+ * Definição de MainWindow
+ * Janela inicial de interação com o usuário
+ * @author <a href="mailto:wolfdragon2@gmail.com">Sávio S. Dias</a>
+ * @version 1.0
  */
 public class MainWindow extends JFrame 
 {
@@ -23,9 +25,7 @@ public class MainWindow extends JFrame
         initComponents();
         setLocationRelativeTo( null );
         
-        
         myGraph = MyGraph.getInstance();
-        myGraph.readDataBase();
     }
 
     

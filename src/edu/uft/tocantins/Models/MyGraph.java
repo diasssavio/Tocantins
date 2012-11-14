@@ -28,6 +28,8 @@ public class MyGraph extends Object
     {
         vertexes.clear();
         edges.clear();
+        
+        readDataBase();
     }
     
     // <------------------- 2.Getters methods ------------------->
@@ -129,7 +131,7 @@ public class MyGraph extends Object
             // Adding edges (roads)
             search = dataBase.getResultSet( "SELECT * FROM conexoes" );
             while( search.next() )
-                addEdge( search.getInt( "idConexoes" ) - 1 , search.getInt( "Cidade" ) - 1, search.getInt( "Distancia" ) );
+                addEdge( search.getInt( "idConexoes" ) - 1 , search.getInt( "Cidade" ) - 1, search.getInt( "Distancia" ), !search.getBoolean( "Sem_Asfalto" ) );
             
             search.close();
         }
@@ -158,10 +160,10 @@ public class MyGraph extends Object
      * @param distance distancia do vertice origem ao vertice destino
      * @return true se adicionou aresta com sucesso, false caso contrario
      */
-    public boolean addEdge( int source, int destination, int distance )
+    public boolean addEdge( int source, int destination, int distance, boolean asphalt )
     {
         if( hasVertex( source ) && hasVertex( destination ) )
-            return ( edges.add( new Edge( source, destination, distance ) ) ) ? true : false;
+            return ( edges.add( new Edge( source, destination, distance, asphalt ) ) ) ? true : false;
         else return false;
     }
     
@@ -223,7 +225,10 @@ public class MyGraph extends Object
     
     // <------------------- 5.Algorithm ------------------->
     /**
-     * 
+     * Usa o algoritmo de dijkstra para calcular o menor caminho de source à destination
+     * @param source id do vertice de origem
+     * @param destination id do vertice de destino
+     * @return o tamanho do menor caminho entre source e destination
      */
     public int dijkstra( int source, int destination )
     {

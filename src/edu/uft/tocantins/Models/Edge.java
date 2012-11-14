@@ -12,6 +12,7 @@ public class Edge extends Object
     private int source;
     private int destination;
     private int distance;
+    private boolean asfalt;
     
     // <------------------- 1.Constructors ------------------->
     /**
@@ -20,11 +21,12 @@ public class Edge extends Object
      * @param destination id do vertice de destino
      * @param distance distancia do vertice origem ao vertice destino
      */
-    public Edge( int source, int destination, int distance )
+    public Edge( int source, int destination, int distance, boolean asphalt )
     {
         setSource( source );
         setDestination( destination );
         setDistance( distance );
+        setAsphalt( asphalt );
     }
     
     // <------------------- 2.Getters methods ------------------->
@@ -53,6 +55,15 @@ public class Edge extends Object
     public int getDistance()
     {
         return this.distance;
+    }
+    
+    /**
+     * Retorna se a estrada (aresta) é asfaltada ou não
+     * @return true se houver asfalto, false caso contrário
+     */
+    public boolean getAsfalt()
+    {
+        return this.asfalt;
     }
     
     // <------------------- 3.Setters methods ------------------->
@@ -87,6 +98,15 @@ public class Edge extends Object
         if( distance >= 0 )
             this.distance = distance;
         else this.distance = -1;
+    }
+    
+    /**
+     * Define se a aresta tem ou não asfalto
+     * @param asphalt estado de asfalto (tem ou não)
+     */
+    public void setAsphalt( boolean asphalt )
+    {
+        this.asfalt = asphalt;
     }
     
     // <------------------- 4.Functional methods ------------------->

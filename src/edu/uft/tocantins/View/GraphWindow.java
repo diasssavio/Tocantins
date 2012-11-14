@@ -1,15 +1,11 @@
 package edu.uft.tocantins.View;
 
-import edu.uft.tocantins.Models.DBManager;
 import edu.uft.tocantins.Models.MyGraph;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.swing.mxGraphComponent;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import java.util.HashMap;
 import java.util.Random;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /**
  * Definição da classe GraphWindow
