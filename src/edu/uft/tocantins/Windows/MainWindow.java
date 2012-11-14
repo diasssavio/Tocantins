@@ -1,4 +1,4 @@
-package Windows;
+package edu.uft.tocantins.Windows;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;

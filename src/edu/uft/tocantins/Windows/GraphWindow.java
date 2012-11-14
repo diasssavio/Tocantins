@@ -1,7 +1,7 @@
-package Windows;
+package edu.uft.tocantins.Windows;
 
-import Tocantins.DBManager;
-import Tocantins.MyGraph;
+import edu.uft.tocantins.Models.DBManager;
+import edu.uft.tocantins.Models.MyGraph;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.swing.mxGraphComponent;
 import javax.swing.JFrame;

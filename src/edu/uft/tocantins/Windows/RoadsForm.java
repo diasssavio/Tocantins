@@ -1,6 +1,6 @@
-package Windows;
+package edu.uft.tocantins.Windows;
 
-import Tocantins.DBManager;
+import edu.uft.tocantins.Models.DBManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JFrame;

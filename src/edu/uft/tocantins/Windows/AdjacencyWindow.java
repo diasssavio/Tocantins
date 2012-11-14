@@ -8,7 +8,7 @@
  *
  * Created on 14/11/2012, 12:42:45
  */
-package Windows;
+package edu.uft.tocantins.Windows;
 
 /**
  *

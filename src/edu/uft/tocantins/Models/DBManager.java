@@ -1,4 +1,4 @@
-package Tocantins;
+package edu.uft.tocantins.Models;
 
 import java.sql.*;
 
