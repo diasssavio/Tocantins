@@ -18,6 +18,7 @@ public class RoadsForm extends JFrame
     // <------------------- 0.Variables ------------------->
     private DBManager dbManager;
     private ResultSet resultSet;
+    
     private DefaultTableModel edgesTable;
     
     // <------------------- 1.Constructors ------------------->
@@ -33,6 +34,7 @@ public class RoadsForm extends JFrame
         dbManager = DBManager.getInstance();
         edgesTable = new DefaultTableModel();
         
+        initializeTable();
         beginTable();
         beginCombos();
         
@@ -78,7 +80,6 @@ public class RoadsForm extends JFrame
     private void beginTable() throws SQLException
     {
         resultSet = dbManager.getResultSet( "SELECT * FROM conexoes" );
-        // Needs to add the last column name
         while( resultSet.next() )
             edgesTable.addRow( new Object[] { resultSet.getString( "idConexoes" ), resultSet.getString( "Cidade" ), resultSet.getDouble( "Distancia" ), !resultSet.getBoolean( "Sem_Asfalto" ) } );
         
@@ -267,12 +268,13 @@ public class RoadsForm extends JFrame
     }// </editor-fold>//GEN-END:initComponents
     // <------------------- 3. Events ------------------->
     /**
-     * Ação do clique no botão "Salvar"
+     * "Salvar" action performed
      * @param evt evento
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Adding new edge on the bench
-        try{
+        try
+        {
             dbManager.execute( "INSERT INTO conexoes(idConexoes, Cidade, Distancia, Sem_Asfalto)"
                     + " VALUES(" + jComboBox1.getSelectedItem() + ", " + jComboBox2.getSelectedItem() 
                     + ", " + jTextField1.getText() + ", " + ( ( jRadioButton1.isSelected() ) ? 0 : 1 ) + ")" );

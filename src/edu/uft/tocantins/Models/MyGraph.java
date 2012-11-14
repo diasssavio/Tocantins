@@ -232,8 +232,10 @@ public class MyGraph extends Object
      */
     public int dijkstra( int source, int destination )
     {
+        if( adjacencyMatrix == null ) makeMatrix();
+        
         int distances[] = new int[ vertexes.size() ];
-        int visited [] = new int[ vertexes.size() ];
+        int visited[] = new int[ vertexes.size() ];
         
         Arrays.fill( distances, 0x7f );
         distances[ source ] = 0;

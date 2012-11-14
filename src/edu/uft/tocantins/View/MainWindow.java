@@ -86,6 +86,7 @@ public class MainWindow extends JFrame
         });
 
         jButton6.setText("Dijkstra Aperfeiçoado");
+        jButton6.setEnabled(false);
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -157,7 +158,7 @@ public class MainWindow extends JFrame
 
     // <------------------- 2. Events ------------------->
     /**
-     * 
+     * "Mostrar Grafo" action performed
      * @param evt 
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -166,7 +167,7 @@ public class MainWindow extends JFrame
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
-     * 
+     * "Mostrar matriz de adjacência" action performed
      * @param evt 
      */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -174,16 +175,16 @@ public class MainWindow extends JFrame
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
-     * 
+     * "Cadastrar Cidades" action performed
      * @param evt 
      */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // Add new cities (vertexes) in graph and database
-        
+        new CitiesForm().setVisible( true );
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
-     * 
+     * "Cadastrar Estradas" action performed
      * @param evt 
      */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -199,16 +200,16 @@ public class MainWindow extends JFrame
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
-     * 
+     * "Calcular Dijkstra" action performed
      * @param evt 
      */
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // Use Dijkstra algorithm to calcule SHORTEST path
-        
+        JOptionPane.showMessageDialog( null, myGraph.dijkstra( 1, 2 ) );
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
-     * 
+     * "Calcular Dijkstra Aperfeiçoado" action performed
      * @param evt 
      */
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
