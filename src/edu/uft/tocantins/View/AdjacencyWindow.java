@@ -17,7 +17,8 @@ package edu.uft.tocantins.View;
 public class AdjacencyWindow extends javax.swing.JFrame {
 
     /** Creates new form AdjacencyWindow */
-    public AdjacencyWindow() {
+    public AdjacencyWindow()
+    {
         initComponents();
         this.setLocationRelativeTo( null );
     }

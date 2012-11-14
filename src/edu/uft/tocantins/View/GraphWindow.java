@@ -43,7 +43,7 @@ public class GraphWindow extends JFrame
         frameSettings();
         
         myGraph = new MyGraph();
-        readDataBase();
+        myGraph.readDataBase();
         
         graph = new mxGraph();
         toMxGraph();
@@ -83,36 +83,6 @@ public class GraphWindow extends JFrame
     }
     
     // <------------------- 3.Read and Transfer Data ------------------->
-    /**
-     * Realiza leitura das tabelas do banco de dados e os armazena em myGraph
-     */
-    private void readDataBase()
-    {
-        try
-        {
-            DBManager dataBase = DBManager.getInstance();
-            
-            // Adding vertexes (cities)
-            ResultSet search = dataBase.getResultSet( "SELECT * FROM cidades" );
-            while( search.next() )
-                myGraph.addVertex( search.getString( "Nome" ) , search.getInt( "Populacao" ) );
-            
-            search.close();
-            search = null;
-            
-            // Adding edges (estradas)
-            search = dataBase.getResultSet( "SELECT * FROM conexoes" );
-            while( search.next() )
-                myGraph.addEdge( search.getInt( "idConexoes" ) - 1 , search.getInt( "Cidade" ) - 1, search.getDouble( "Distancia" ) );
-            
-            search.close();
-        }
-        catch( SQLException exception )
-        {
-            JOptionPane.showMessageDialog( null, exception.getMessage() );
-        }
-    }
-    
     /**
      * Transfere os dados (vertices, arestas) de myGraph para graph para visualização na tela
      */

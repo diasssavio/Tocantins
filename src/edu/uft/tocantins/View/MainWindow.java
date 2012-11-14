@@ -148,7 +148,7 @@ public class MainWindow extends JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    // <------------------- 3. Events ------------------->
+    // <------------------- 2. Events ------------------->
     /**
      * 
      * @param evt 

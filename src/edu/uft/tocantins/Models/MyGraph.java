@@ -1,6 +1,9 @@
 package edu.uft.tocantins.Models;
 
+import javax.swing.JOptionPane;
 import java.util.ArrayList;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * Definição da classe MyGraph
@@ -83,7 +86,38 @@ public class MyGraph extends Object
         return null;
     }
     
-    // <------------------- 3.Functional methods ------------------->
+    // <------------------- 3.Read and Transfer Data ------------------->
+    /**
+     * Realiza leitura das tabelas do banco de dados e os armazena na instância
+     */
+    public void readDataBase()
+    {
+        try
+        {
+            DBManager dataBase = DBManager.getInstance();
+            
+            // Adding vertexes (cities)
+            ResultSet search = dataBase.getResultSet( "SELECT * FROM cidades" );
+            while( search.next() )
+                addVertex( search.getString( "Nome" ) , search.getInt( "Populacao" ) );
+            
+            search.close();
+            search = null;
+            
+            // Adding edges (roads)
+            search = dataBase.getResultSet( "SELECT * FROM conexoes" );
+            while( search.next() )
+                addEdge( search.getInt( "idConexoes" ) - 1 , search.getInt( "Cidade" ) - 1, search.getDouble( "Distancia" ) );
+            
+            search.close();
+        }
+        catch( SQLException exception )
+        {
+            JOptionPane.showMessageDialog( null, exception.getMessage() );
+        }
+    }
+    
+    // <------------------- 4.Functional methods ------------------->
     /**
      * Adiciona um vertice ao grafo (cidade)
      * @param cityName nome da cidade a ser definida pelo vertice
