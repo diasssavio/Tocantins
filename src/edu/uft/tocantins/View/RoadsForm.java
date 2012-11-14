@@ -1,4 +1,4 @@
-package edu.uft.tocantins.Windows;
+package edu.uft.tocantins.View;
 
 import edu.uft.tocantins.Models.DBManager;
 import java.sql.ResultSet;
