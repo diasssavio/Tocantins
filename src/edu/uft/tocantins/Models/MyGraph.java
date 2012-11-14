@@ -2,6 +2,7 @@ package edu.uft.tocantins.Models;
 
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -17,7 +18,7 @@ public class MyGraph extends Object
     private static MyGraph instance;
     private ArrayList<Vertex> vertexes = new ArrayList<Vertex>();
     private ArrayList<Edge> edges = new ArrayList<Edge>();
-    private double[][] adjacencyMatrix;
+    private int[][] adjacencyMatrix;
     
     // <------------------- 1.Constructors ------------------->
     /**
@@ -101,7 +102,7 @@ public class MyGraph extends Object
      * Retorna a matriz de adjacencias
      * @return matriz de adjacencias
      */
-    public double[][] getAdjacencyMatrix()
+    public int[][] getAdjacencyMatrix()
     {
         if( adjacencyMatrix == null ) makeMatrix();
         return this.adjacencyMatrix;
@@ -128,7 +129,7 @@ public class MyGraph extends Object
             // Adding edges (roads)
             search = dataBase.getResultSet( "SELECT * FROM conexoes" );
             while( search.next() )
-                addEdge( search.getInt( "idConexoes" ) - 1 , search.getInt( "Cidade" ) - 1, search.getDouble( "Distancia" ) );
+                addEdge( search.getInt( "idConexoes" ) - 1 , search.getInt( "Cidade" ) - 1, search.getInt( "Distancia" ) );
             
             search.close();
         }
@@ -157,7 +158,7 @@ public class MyGraph extends Object
      * @param distance distancia do vertice origem ao vertice destino
      * @return true se adicionou aresta com sucesso, false caso contrario
      */
-    public boolean addEdge( int source, int destination, double distance )
+    public boolean addEdge( int source, int destination, int distance )
     {
         if( hasVertex( source ) && hasVertex( destination ) )
             return ( edges.add( new Edge( source, destination, distance ) ) ) ? true : false;
@@ -179,7 +180,7 @@ public class MyGraph extends Object
                     adjacencyMatrix[i][j] = vertexes.get( i ).getPopulation();
                 else if( hasEdge( i, j ) )
                     adjacencyMatrix[i][j] = adjacencyMatrix[j][i] = getEdge( i, j ).getDistance();
-                else adjacencyMatrix[i][j] = adjacencyMatrix[j][i] = 0.0;
+                else adjacencyMatrix[i][j] = adjacencyMatrix[j][i] = 0;
             }
         }
     }
@@ -189,7 +190,7 @@ public class MyGraph extends Object
      */
     private void allocateMatrix()
     {
-        adjacencyMatrix = new double[ vertexes.size() ][ vertexes.size() ];
+        adjacencyMatrix = new int[ vertexes.size() ][ vertexes.size() ];
     }
     
     /**
@@ -206,11 +207,47 @@ public class MyGraph extends Object
         
         return false;
     }
+    
+    /**
+     * Verifica se existe vertice com ID, id
+     * @param id id a ser verificado
+     * @return true se existe, false caso contrario
+     */
     private boolean hasVertex( int id )
     {
         for( int i = 0; i < vertexes.size(); i++ )
             if( vertexes.get( i ).getID() == id)
                 return true;
         return false;
+    }
+    
+    // <------------------- 5.Algorithm ------------------->
+    /**
+     * 
+     */
+    public int dijkstra( int source, int destination )
+    {
+        int distances[] = new int[ vertexes.size() ];
+        int visited [] = new int[ vertexes.size() ];
+        
+        Arrays.fill( distances, 0x7f );
+        distances[ source ] = 0;
+        
+        while( true )
+        {
+            int n = -1;
+            for( int i = 0; i < vertexes.size(); i++ )
+                if( visited[i] != 1 && ( n < 0 || distances[i] < distances[n] ) )
+                    n = i;
+            
+            if( n < 0 ) break;
+            visited[n] = 1;
+            
+            for( int i = 0; i < vertexes.size(); i++ )
+                if( adjacencyMatrix[n][i] != 1 && distances[i] > distances[n] + adjacencyMatrix[n][i] )
+                    distances[i] = distances[n] + adjacencyMatrix[n][i];
+        }
+        
+        return distances[ destination ];
     }
 }

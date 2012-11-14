@@ -11,7 +11,7 @@ public class Edge extends Object
     // <------------------- 0.Variables ------------------->
     private int source;
     private int destination;
-    private double distance;
+    private int distance;
     
     // <------------------- 1.Constructors ------------------->
     /**
@@ -20,7 +20,7 @@ public class Edge extends Object
      * @param destination id do vertice de destino
      * @param distance distancia do vertice origem ao vertice destino
      */
-    public Edge( int source, int destination, double distance )
+    public Edge( int source, int destination, int distance )
     {
         setSource( source );
         setDestination( destination );
@@ -50,7 +50,7 @@ public class Edge extends Object
      * Retorna a distancia (peso) entre o vertice de origem e destino
      * @return distancia (peso) entre o vertice de origem e destino
      */
-    public double getDistance()
+    public int getDistance()
     {
         return this.distance;
     }
@@ -82,11 +82,11 @@ public class Edge extends Object
      * Define a distancia (peso) da aresta
      * @param distance distancia do vertice origem ao vertice destino
      */
-    public void setDistance( double distance )
+    public void setDistance( int distance )
     {
-        if( distance >= 0.0 )
+        if( distance >= 0 )
             this.distance = distance;
-        else this.distance = -1.0;
+        else this.distance = -1;
     }
     
     // <------------------- 4.Functional methods ------------------->
