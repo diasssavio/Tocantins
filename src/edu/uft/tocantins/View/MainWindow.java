@@ -1,5 +1,6 @@
 package edu.uft.tocantins.View;
 
+import edu.uft.tocantins.Models.MyGraph;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
@@ -11,7 +12,7 @@ import java.sql.SQLException;
 public class MainWindow extends JFrame 
 {
     // <------------------- 0. Variables ------------------->
-    
+    private MyGraph myGraph;
     // <------------------- 1. Constructors ------------------->
     /**
      * Construtor da classe MainWindow
@@ -20,6 +21,10 @@ public class MainWindow extends JFrame
     {
         initComponents();
         setLocationRelativeTo( null );
+        
+        
+        myGraph = MyGraph.getInstance();
+        myGraph.readDataBase();
     }
 
     
@@ -49,6 +54,7 @@ public class MainWindow extends JFrame
         });
 
         jButton2.setText("Matriz de Adjacência");
+        jButton2.setEnabled(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -164,7 +170,6 @@ public class MainWindow extends JFrame
      */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // Show Graph adjacency matrix
-        new AdjacencyWindow().setVisible( true );
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
