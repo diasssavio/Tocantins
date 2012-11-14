@@ -163,7 +163,7 @@ public class RoadsForm extends JFrame
         jTable1.getColumnModel().getColumn(2).setResizable(false);
         jTable1.getColumnModel().getColumn(3).setResizable(false);
 
-        jLabel3.setText("VERTICES");
+        jLabel3.setText("Adicionar Aresta");
 
         jLabel4.setText("Distancia:");
 
@@ -243,8 +243,7 @@ public class RoadsForm extends JFrame
                                     .addComponent(jLabel2)
                                     .addComponent(jRadioButton1)
                                     .addComponent(jRadioButton2)))
-                            .addComponent(jLabel1))
-                        .addGap(18, 18, 18))
+                            .addComponent(jLabel1)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -253,7 +252,7 @@ public class RoadsForm extends JFrame
                         .addGap(43, 43, 43)))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)

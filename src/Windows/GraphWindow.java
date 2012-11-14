@@ -12,12 +12,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Definição da classe Main
+ * Definição da classe GraphWindow
  * Realiza o processamento do grafo e os exibe na tela
  * @author <a href="mailto:wolfdragon2@gmail.com">Sávio S. Dias</a>
  * @version 1.0
  */
-public class Main extends JFrame
+public class GraphWindow extends JFrame
 {
     // <------------------- 0.Variables ------------------->
     // Screen size
@@ -36,9 +36,9 @@ public class Main extends JFrame
     
     // <------------------- 1.Constructors ------------------->
     /**
-     * Construtor da classe Main
+     * Construtor da classe GraphWindow
      */
-    private Main()
+    public GraphWindow()
     {
         frameSettings();
         
@@ -153,13 +153,13 @@ public class Main extends JFrame
         return new Random().nextInt( limit );
     }
     
-    // <------------------- 5.Main ------------------->
+    // <------------------- 5.GraphWindow ------------------->
     /**
      * Função principal, chamada pelo processador
      * @param args argumentos de linha de comando
      */
     public static void main( String args[] )
     {
-        new Main().setVisible( true );
+        new GraphWindow().setVisible( true );
     }
 }
