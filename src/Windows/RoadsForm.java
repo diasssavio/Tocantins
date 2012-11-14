@@ -33,6 +33,7 @@ public class RoadsForm extends JFrame
         dbManager = DBManager.getInstance();
         edgesTable = new DefaultTableModel();
         
+        initializeTable();
         beginTable();
         beginCombos();
         
@@ -49,7 +50,7 @@ public class RoadsForm extends JFrame
 
                 },
                 new String [] {
-                    "Origem", "Destino", "Distancia", "Sem Asfalto"
+                    "Origem", "Destino", "Distancia", "Asfalto"
                 }
             ) {
                 Class[] types = new Class [] {
@@ -79,7 +80,7 @@ public class RoadsForm extends JFrame
         resultSet = dbManager.getResultSet( "SELECT * FROM conexoes" );
         // Needs to add the last column name
         while( resultSet.next() )
-            edgesTable.addRow( new Object[] { resultSet.getString( "idConexoes" ), resultSet.getString( "Cidade" ), resultSet.getDouble( "Distancia" ), resultSet.getBoolean( "Sem_Asfalto" ) } );
+            edgesTable.addRow( new Object[] { resultSet.getString( "idConexoes" ), resultSet.getString( "Cidade" ), resultSet.getDouble( "Distancia" )/*, resultSet.getBoolean( "" )*/ } );
         
         resultSet.close();
         resultSet = null;
@@ -141,7 +142,7 @@ public class RoadsForm extends JFrame
 
             },
             new String [] {
-                "Origem", "Destino", "Distancia", "Sem Asfalto"
+                "Origem", "Destino", "Distancia", "Asfalto"
             }
         ) {
             Class[] types = new Class [] {
@@ -202,24 +203,23 @@ public class RoadsForm extends JFrame
                                     .addComponent(jLabel2))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(jLabel4)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jRadioButton1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                                        .addComponent(jRadioButton2))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel5)
-                                        .addGap(43, 43, 43))))
+                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jRadioButton1)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                                                .addComponent(jRadioButton2))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel5)
+                                                .addGap(43, 43, 43))))))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)))
                     .addGroup(layout.createSequentialGroup()
@@ -230,7 +230,7 @@ public class RoadsForm extends JFrame
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addComponent(jLabel3)
@@ -246,14 +246,14 @@ public class RoadsForm extends JFrame
                                     .addComponent(jLabel2)
                                     .addComponent(jRadioButton1)
                                     .addComponent(jRadioButton2)))
-                            .addComponent(jLabel1))
-                        .addGap(18, 18, 18))
+                            .addComponent(jLabel1)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(53, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(39, 39, 39)))
+                        .addGap(43, 43, 43)))
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(jLabel6)
@@ -272,13 +272,10 @@ public class RoadsForm extends JFrame
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Adding new edge on the bench
         try{
-            dbManager.execute( "INSERT INTO conexoes(idConexoes, Cidade, Distancia, Sem_Asfalto)"
+            // Needs to add the last column name
+            dbManager.execute( "INSERT INTO conexoes(idConexoes, Cidade, Distancia)"
                     + " VALUES(" + jComboBox1.getSelectedItem() + ", " + jComboBox2.getSelectedItem() 
-                    + ", " + jTextField1.getText() + ", " + ( ( jRadioButton1.isSelected() ) ? 0 : 1 ) + ")" );
-            
-            dbManager.execute( "INSERT INTO conexoes(idConexoes, Cidade, Distancia, Sem_Asfalto)"
-                    + " VALUES(" + jComboBox2.getSelectedItem() + ", " + jComboBox1.getSelectedItem()
-                    + ", " + jTextField1.getText() + ", " + ( ( jRadioButton1.isSelected() ) ? 0 : 1 ) + ")" );
+                    + ", " + jTextField1.getText() + ")" );
             
             // Cleaning GUI form options
             jComboBox1.setSelectedIndex( 0 );
