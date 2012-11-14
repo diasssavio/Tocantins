@@ -21,7 +21,10 @@ public class RoadsForm extends JFrame
     private DefaultTableModel edgesTable;
     
     // <------------------- 1.Constructors ------------------->
-    /** Creates new form RoadsForm */
+    /**
+     * Construtor da classe RoadsForm
+     * @throws SQLException 
+     */
     public RoadsForm() throws SQLException
     {
         initComponents();
@@ -290,44 +293,6 @@ public class RoadsForm extends JFrame
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    // <------------------- 4.Main ------------------->
-    /**
-     * Função principal, chamada pelo processador
-     * @param argumentos de linha de comando
-     */
-    public static void main( String args[] ) 
-    {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RoadsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RoadsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RoadsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RoadsForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        try
-        {
-            new RoadsForm().setVisible(true);
-        }
-        catch ( SQLException exception )
-        {
-            JOptionPane.showMessageDialog( null, exception.getMessage() );
-        }
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;

@@ -1,6 +1,8 @@
 package Windows;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import java.sql.SQLException;
 
 /**
  *
@@ -8,11 +10,16 @@ import javax.swing.JFrame;
  */
 public class MainWindow extends JFrame 
 {
-
-    /** Creates new form MainWindow */
+    // <------------------- 0. Variables ------------------->
+    
+    // <------------------- 1. Constructors ------------------->
+    /**
+     * Construtor da classe MainWindow
+     */
     public MainWindow() 
     {
         initComponents();
+        setLocationRelativeTo( null );
     }
 
     
@@ -42,16 +49,41 @@ public class MainWindow extends JFrame
         });
 
         jButton2.setText("Matriz de Adjacência");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Cidade");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Estrada");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("CADASTRAR:");
 
         jButton5.setText("Dijkstra");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Dijkstra Aperfeiçoado");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("CALCULAR:");
 
@@ -116,11 +148,69 @@ public class MainWindow extends JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // <------------------- 3. Events ------------------->
+    /**
+     * 
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // Show Graph structure
         new GraphWindow().setVisible( true );
-        
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    /**
+     * 
+     * @param evt 
+     */
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // Show Graph adjacency matrix
+        new AdjacencyWindow().setVisible( true );
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    /**
+     * 
+     * @param evt 
+     */
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // Add new cities (vertexes) in graph and database
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    /**
+     * 
+     * @param evt 
+     */
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // Add new roads (edges) in graph and database
+        try
+        {
+            new RoadsForm().setVisible(true);
+        }
+        catch ( SQLException exception )
+        {
+            JOptionPane.showMessageDialog( null, exception.getMessage() );
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    /**
+     * 
+     * @param evt 
+     */
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // Use Dijkstra algorithm to calcule SHORTEST path
+        
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    /**
+     * 
+     * @param evt 
+     */
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // Use Dijktra algorithm to calcule BEST path
+        
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    // <------------------- 3. main ------------------->
     /**
      * Função principal, chamada pelo processador
      * @param args argumentos de linha de comando

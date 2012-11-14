@@ -152,14 +152,4 @@ public class GraphWindow extends JFrame
     {
         return new Random().nextInt( limit );
     }
-    
-    // <------------------- 5.GraphWindow ------------------->
-    /**
-     * Função principal, chamada pelo processador
-     * @param args argumentos de linha de comando
-     */
-    public static void main( String args[] )
-    {
-        new GraphWindow().setVisible( true );
-    }
 }
