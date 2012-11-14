@@ -1,5 +1,7 @@
-package Tocantins;
+package Windows;
 
+import Tocantins.DBManager;
+import Tocantins.MyGraph;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.swing.mxGraphComponent;
 import javax.swing.JFrame;
@@ -19,8 +21,8 @@ public class Main extends JFrame
 {
     // <------------------- 0.Variables ------------------->
     // Screen size
-    private final int width = 1024;
-    private final int height = 768;
+    private final int width = 4000;
+    private final int height = 4000;
     
     // Graph in memory
     private MyGraph myGraph;
@@ -104,7 +106,8 @@ public class Main extends JFrame
                 myGraph.addEdge( search.getInt( "idConexoes" ) - 1 , search.getInt( "Cidade" ) - 1, search.getDouble( "Distancia" ) );
             
             search.close();
-        } catch (SQLException exception)
+        }
+        catch( SQLException exception )
         {
             JOptionPane.showMessageDialog( null, exception.getMessage() );
         }
