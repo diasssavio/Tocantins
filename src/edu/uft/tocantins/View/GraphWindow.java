@@ -42,8 +42,7 @@ public class GraphWindow extends JFrame
     {
         frameSettings();
         
-        myGraph = new MyGraph();
-        myGraph.readDataBase();
+        myGraph = MyGraph.getInstance();
         
         graph = new mxGraph();
         toMxGraph();

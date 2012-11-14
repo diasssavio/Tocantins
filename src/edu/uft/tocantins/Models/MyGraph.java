@@ -14,6 +14,7 @@ import java.sql.SQLException;
 public class MyGraph extends Object
 {
     // <------------------- 0.Variables ------------------->
+    private static MyGraph instance;
     private ArrayList<Vertex> vertexes = new ArrayList<Vertex>();
     private ArrayList<Edge> edges = new ArrayList<Edge>();
     private double[][] adjacencyMatrix;
@@ -22,13 +23,23 @@ public class MyGraph extends Object
     /**
      * Construtor vazio, inicializa o grafo para novas operações
      */
-    public MyGraph()
+    private MyGraph()
     {
         vertexes.clear();
         edges.clear();
     }
     
     // <------------------- 2.Getters methods ------------------->
+    /**
+     * Retorna a classe, evitando que a classe seja varias vezes instanciada
+     * @return classe instanciada
+     */
+    public static MyGraph getInstance()
+    {
+        if( instance == null ) instance = new MyGraph();
+        return instance;
+    }
+    
     /**
      * Retorna os vertices do grafo
      * @return vertices do grafo
@@ -84,6 +95,16 @@ public class MyGraph extends Object
             }
         }
         return null;
+    }
+    
+    /**
+     * Retorna a matriz de adjacencias
+     * @return matriz de adjacencias
+     */
+    public double[][] getAdjacencyMatrix()
+    {
+        if( adjacencyMatrix == null ) makeMatrix();
+        return this.adjacencyMatrix;
     }
     
     // <------------------- 3.Read and Transfer Data ------------------->
@@ -166,7 +187,7 @@ public class MyGraph extends Object
     /**
      * Aloca matriz de adjacencia do grafo
      */
-    public void allocateMatrix()
+    private void allocateMatrix()
     {
         adjacencyMatrix = new double[ vertexes.size() ][ vertexes.size() ];
     }
