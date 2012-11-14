@@ -13,6 +13,7 @@ public class MainWindow extends JFrame
 {
     // <------------------- 0. Variables ------------------->
     private MyGraph myGraph;
+    
     // <------------------- 1. Constructors ------------------->
     /**
      * Construtor da classe MainWindow
