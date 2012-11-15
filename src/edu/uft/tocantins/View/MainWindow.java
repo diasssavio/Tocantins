@@ -206,7 +206,7 @@ public class MainWindow extends JFrame
      */
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // Use Dijkstra algorithm to calcule SHORTEST path
-        JOptionPane.showMessageDialog( null, myGraph.dijkstra( 1, 8 ) );
+        JOptionPane.showMessageDialog( null, myGraph.dijkstra( 1, 2 ) );
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**

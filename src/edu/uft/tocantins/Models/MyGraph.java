@@ -223,6 +223,20 @@ public class MyGraph extends Object
         return false;
     }
     
+    /**
+     * 
+     * @param id
+     * @return 
+     */
+    public ArrayList<Integer> getNeighbors( int id )
+    {
+        ArrayList<Integer> neighbors = new ArrayList<Integer>();
+        for( int i = 0; i < edges.size(); i++ )
+            if( edges.get( i ).getSource() == id ) neighbors.add( edges.get( i ).getDestination() );
+        
+        return neighbors;
+    }
+    
     // <------------------- 5.Algorithm ------------------->
     /**
      * Usa o algoritmo de dijkstra para calcular o menor caminho de source à destination
@@ -230,29 +244,70 @@ public class MyGraph extends Object
      * @param destination id do vertice de destino
      * @return o tamanho do menor caminho entre source e destination
      */
-    public int dijkstra( int source, int destination )
+    public int[] dijkstra( int source, int destination )
     {
-        int distances[] = new int[ vertexes.size() ];
-        int visited[] = new int[ vertexes.size() ];
+        int[] distances = new int[ vertexes.size() ];
+        int[] preceeding = new int[ vertexes.size() ];
+        boolean[] visited = new boolean[ vertexes.size() ];
         
-        Arrays.fill( distances, 0x7f );
+        Arrays.fill( distances, Integer.MAX_VALUE );
         distances[ source ] = 0;
         
-        while( true )
+        for( int i = 0; i < distances.length; i++ )
+        {
+            int next = minVertex( distances, visited );
+            visited[next] = true;
+            
+            ArrayList<Integer> n = getNeighbors( next );
+            for( int j = 0; j < n.size(); i++ )
+            {
+                int v = n.get( j );
+                int d = distances[next] + getEdge( next, v ).getDistance();
+                if( distances[v] > d )
+                {
+                    distances[v] = d;
+                    preceeding[v] = next;
+                }
+            }
+        }
+        
+        return preceeding;
+        
+        /*while( true )
         {
             int n = -1;
             for( int i = 0; i < vertexes.size(); i++ )
-                if( visited[i] == 0 && ( n < 0 || distances[i] < distances[n] ) )
+                if( !visited[i] && ( n < 0 || distances[i] < distances[n] ) )
                     n = i;
             
             if( n < 0 ) break;
-            visited[n] = 1;
+            visited[n] = true;
             
             for( int i = 0; i < vertexes.size(); i++ )
                 if( adjacencyMatrix[n][i] != 0 && distances[i] > distances[n] + adjacencyMatrix[n][i] )
                     distances[i] = distances[n] + adjacencyMatrix[n][i];
         }
         
-        return distances[ destination ];
+        return distances[ destination ];*/
+    }
+    
+    /**
+     * 
+     * @param distances
+     * @param visited
+     * @return 
+     */
+    private static int minVertex( int[] distances, boolean[] visited )
+    {
+        int x = Integer.MAX_VALUE;
+        int y = -1;
+        for( int i = 0; i < distances.length; i++ )
+            if( !visited[i] && distances[i] < x )
+            {
+                y = i;
+                x = distances[i];
+            }
+        
+        return y;
     }
 }
