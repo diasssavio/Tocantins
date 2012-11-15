@@ -56,7 +56,7 @@ public class GraphWindow extends JFrame
     private void frameSettings()
     {
         this.setTitle( "Grafo das cidades do Tocantins" );
-        this.setAlwaysOnTop( true );
+        //this.setAlwaysOnTop( true );
         this.setSize( width, height );
         this.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         this.setLocationRelativeTo( null );

@@ -178,9 +178,9 @@ public class MyGraph extends Object
         {
             for( int j = 0; j < vertexes.size(); j++ )
             {
-                if( i == j )
+                /*if( i == j )
                     adjacencyMatrix[i][j] = vertexes.get( i ).getPopulation();
-                else if( hasEdge( i, j ) )
+                else */if( hasEdge( i, j ) )
                     adjacencyMatrix[i][j] = adjacencyMatrix[j][i] = getEdge( i, j ).getDistance();
                 else adjacencyMatrix[i][j] = adjacencyMatrix[j][i] = 0;
             }
@@ -244,22 +244,23 @@ public class MyGraph extends Object
      * @param destination id do vertice de destino
      * @return o tamanho do menor caminho entre source e destination
      */
-    public int[] dijkstra( int source, int destination )
+    public int dijkstra( int source, int destination )
     {
         int[] distances = new int[ vertexes.size() ];
-        int[] preceeding = new int[ vertexes.size() ];
+        //int[] preceeding = new int[ vertexes.size() ];
         boolean[] visited = new boolean[ vertexes.size() ];
         
         Arrays.fill( distances, Integer.MAX_VALUE );
+        Arrays.fill( visited, false );
         distances[ source ] = 0;
         
-        for( int i = 0; i < distances.length; i++ )
+        /*for( int i = 0; i < distances.length; i++ )
         {
             int next = minVertex( distances, visited );
             visited[next] = true;
             
             ArrayList<Integer> n = getNeighbors( next );
-            for( int j = 0; j < n.size(); i++ )
+            for( int j = 0; j < n.size(); j++ )
             {
                 int v = n.get( j );
                 int d = distances[next] + getEdge( next, v ).getDistance();
@@ -271,24 +272,24 @@ public class MyGraph extends Object
             }
         }
         
-        return preceeding;
+        return distances;*/
         
-        /*while( true )
+        while( true )
         {
-            int n = -1;
+            int next = -1;
             for( int i = 0; i < vertexes.size(); i++ )
-                if( !visited[i] && ( n < 0 || distances[i] < distances[n] ) )
-                    n = i;
+                if( !visited[i] && ( next < 0 || distances[i] < distances[next] ) )
+                    next = i;
             
-            if( n < 0 ) break;
-            visited[n] = true;
+            if( next < 0 ) break;
+            visited[next] = true;
             
             for( int i = 0; i < vertexes.size(); i++ )
-                if( adjacencyMatrix[n][i] != 0 && distances[i] > distances[n] + adjacencyMatrix[n][i] )
-                    distances[i] = distances[n] + adjacencyMatrix[n][i];
+                if( adjacencyMatrix[next][i] != 0 && distances[i] > distances[next] + adjacencyMatrix[next][i] )
+                    distances[i] = distances[next] + adjacencyMatrix[next][i];
         }
         
-        return distances[ destination ];*/
+        return distances[ destination ];
     }
     
     /**

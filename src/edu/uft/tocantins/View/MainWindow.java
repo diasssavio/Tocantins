@@ -56,7 +56,6 @@ public class MainWindow extends JFrame
         });
 
         jButton2.setText("Matriz de Adjacência");
-        jButton2.setEnabled(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -173,6 +172,13 @@ public class MainWindow extends JFrame
      */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // Show Graph adjacency matrix
+        int[][] matrix = myGraph.getAdjacencyMatrix();
+        for( int i = 0; i < myGraph.getVertexes().size(); i++ )
+        {
+            for( int j = 0; j < myGraph.getVertexes().size(); j++ )
+                System.out.printf("%4d",matrix[i][j]);
+            System.out.println();
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -206,7 +212,8 @@ public class MainWindow extends JFrame
      */
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // Use Dijkstra algorithm to calcule SHORTEST path
-        JOptionPane.showMessageDialog( null, myGraph.dijkstra( 1, 2 ) );
+        JOptionPane.showMessageDialog( null, myGraph.dijkstra( 0, 3 ) );
+        //new DijkstraForm().setVisible( true );
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
