@@ -1,8 +1,11 @@
 package edu.uft.tocantins.View;
 
 import edu.uft.tocantins.Models.MyGraph;
+import edu.uft.tocantins.Models.Vertex;
+import edu.uft.tocantins.Models.DijkstraAlgorithm;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
+import java.util.List;
 
 /**
  *
@@ -11,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 public class DijkstraForm extends JFrame
 {
     private MyGraph myGraph;
+    private DijkstraAlgorithm dijkstra;
     private DefaultTableModel pathTable;
 
     /**
@@ -22,7 +26,7 @@ public class DijkstraForm extends JFrame
         
         myGraph = MyGraph.getInstance();
         pathTable = new DefaultTableModel();
-        
+        dijkstra = new DijkstraAlgorithm( myGraph );
         
         beginCombos();
         initializeTable();
@@ -34,28 +38,28 @@ public class DijkstraForm extends JFrame
     private void initializeTable()
     {
         pathTable = new javax.swing.table.DefaultTableModel(
-                new Object [][] {
+            new Object [][] {
 
-                },
-                new String [] {
-                    "Cidade", "Distancia"
-                }
-            ) {
-                Class[] types = new Class [] {
-                    java.lang.Integer.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Boolean.class
-                };
-                boolean[] canEdit = new boolean [] {
-                    false, false, false, false
-                };
-
-                public Class getColumnClass(int columnIndex) {
-                    return types [columnIndex];
-                }
-
-                public boolean isCellEditable(int rowIndex, int columnIndex) {
-                    return canEdit [columnIndex];
-                }
+            },
+            new String [] {
+                "Cidade", "Distância"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        };
         
         jTable1.setModel( pathTable );
     }
@@ -175,6 +179,13 @@ public class DijkstraForm extends JFrame
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Gerar tabela com caminhos do menor percurso
+        int source = jComboBox1.getSelectedIndex() -1;
+        
+        dijkstra.execute( myGraph.getVertex( source ) );
+        List<Vertex> path = dijkstra.getPath( myGraph.getVertex( jComboBox2.getSelectedIndex() - 1 ) );
+        
+        for( Vertex vertex : path )
+            pathTable.addRow( new Object[] { vertex.getCityName(), myGraph.getEdge( source , vertex.getID() ).getDistance() } );
         
     }//GEN-LAST:event_jButton1ActionPerformed
 

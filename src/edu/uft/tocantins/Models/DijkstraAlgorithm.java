@@ -37,8 +37,8 @@ public class DijkstraAlgorithm
     
     // <------------------- 2.Functional methods ------------------->
     /**
-     * 
-     * @param source 
+     * Calcula os caminhos para todos os vertices a partir de source
+     * @param source vertice de origem
      */
     public void execute( Vertex source )
     {
