@@ -15,6 +15,7 @@ public class DijkstraForm extends JFrame
 {
     private MyGraph myGraph;
     private DijkstraAlgorithm dijkstra;
+    
     private DefaultTableModel pathTable;
 
     /**
@@ -23,13 +24,13 @@ public class DijkstraForm extends JFrame
     public DijkstraForm()
     {
         initComponents();
+        this.setLocationRelativeTo( null );
         
         myGraph = MyGraph.getInstance();
-        pathTable = new DefaultTableModel();
+        initializeTable();
         dijkstra = new DijkstraAlgorithm( myGraph );
         
         beginCombos();
-        initializeTable();
     }
 
     /**
@@ -37,20 +38,10 @@ public class DijkstraForm extends JFrame
      */
     private void initializeTable()
     {
-        pathTable = new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Cidade", "Distância"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
+        pathTable = new DefaultTableModel( new Object [][] {}, new String [] { "Cidade", "Distância" } ) 
+        {
+            Class[] types = new Class [] { java.lang.String.class, java.lang.Integer.class };
+            boolean[] canEdit = new boolean [] { false, false };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
@@ -90,6 +81,7 @@ public class DijkstraForm extends JFrame
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -131,26 +123,38 @@ public class DijkstraForm extends JFrame
 
         jLabel2.setText("Cidades por onde passar:");
 
+        jButton2.setText("Desenhar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1))
+                                .addComponent(jButton1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(257, 257, 257))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(257, 257, 257))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
+                        .addGap(156, 156, 156)
+                        .addComponent(jButton2)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -167,7 +171,9 @@ public class DijkstraForm extends JFrame
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addContainerGap())
         );
 
         pack();
@@ -179,18 +185,32 @@ public class DijkstraForm extends JFrame
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Gerar tabela com caminhos do menor percurso
-        int source = jComboBox1.getSelectedIndex() -1;
+        initializeTable();
+        
+        int source = jComboBox1.getSelectedIndex() - 1;
         
         dijkstra.execute( myGraph.getVertex( source ) );
         List<Vertex> path = dijkstra.getPath( myGraph.getVertex( jComboBox2.getSelectedIndex() - 1 ) );
         
+        pathTable.addRow( new Object [] { myGraph.getVertex( source ).getCityName(), 0 } );
         for( Vertex vertex : path )
-            pathTable.addRow( new Object[] { vertex.getCityName(), myGraph.getEdge( source , vertex.getID() ).getDistance() } );
+        {
+            if( vertex.getID() == source ) continue;
+            Object [] row = new Object [] { myGraph.getVertex( vertex.getID() ).getCityName(), myGraph.getEdge( source , vertex.getID() ).getDistance() };
+            pathTable.addRow( row );
+            source = vertex.getID();
+        }
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
