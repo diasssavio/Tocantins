@@ -13,7 +13,9 @@ public class DijkstraForm extends JFrame
     private MyGraph myGraph;
     private DefaultTableModel pathTable;
 
-    /** Creates new form DijkstraForm */
+    /**
+     * 
+     */
     public DijkstraForm()
     {
         initComponents();
@@ -26,6 +28,9 @@ public class DijkstraForm extends JFrame
         initializeTable();
     }
 
+    /**
+     * 
+     */
     private void initializeTable()
     {
         pathTable = new javax.swing.table.DefaultTableModel(
@@ -55,6 +60,9 @@ public class DijkstraForm extends JFrame
         jTable1.setModel( pathTable );
     }
     
+    /**
+     * 
+     */
     private void beginCombos()
     {
         jComboBox1.addItem( "Origem" );
@@ -161,14 +169,13 @@ public class DijkstraForm extends JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * 
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Gerar tabela com caminhos do menor percurso
-        int[] path = myGraph.dijkstra( jComboBox1.getSelectedIndex() - 1, jComboBox2.getSelectedIndex() - 1 );
-        for( int i = 0; i < path.length; i++ )
-        {
-            if( path[i] != 0 )
-                pathTable.addRow( new Object[]{ myGraph.getVertex( path[i] ).getCityName() } );
-        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
