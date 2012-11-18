@@ -163,7 +163,7 @@ public class MainWindow extends JFrame
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Show Graph structure
-        new GraphWindow().setVisible( true );
+        new GraphWindow( myGraph ).setVisible( true );
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

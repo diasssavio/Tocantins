@@ -1,9 +1,12 @@
 package edu.uft.tocantins.View;
 
 import edu.uft.tocantins.Models.MyGraph;
+import edu.uft.tocantins.Models.Vertex;
+import edu.uft.tocantins.Models.Edge;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.swing.mxGraphComponent;
 import javax.swing.JFrame;
+import java.util.List;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -24,21 +27,40 @@ public class GraphWindow extends JFrame
     private MyGraph myGraph;
     
     // Graph showing components
+    private final String groundColor = "defaultVertex;fillColor=red";
     private mxGraph graph;
     private mxGraphComponent graphComponent;
     
     // Hash to do the maping between inserted vertex and it edges
     private HashMap<Integer, Object> hash;
     
+    // Lists of cells to be colored
+    private List<Vertex> coloredVertexes;
+    //private List<Edge> coloredEdges;
+    
     // <------------------- 1.Constructors ------------------->
     /**
      * Construtor da classe GraphWindow
+     * @param myGraph
      */
-    public GraphWindow()
+    public GraphWindow( MyGraph myGraph )
     {
-        frameSettings();
+        this( myGraph, null );
+    }
+    
+    /**
+     * Construtor da classe GraphWindow
+     * @param myGraph
+     * @param vertexesToBeColored
+     * @param edgesToBeColored 
+     */
+    public GraphWindow( MyGraph myGraph, List<Vertex> vertexesToBeColored )
+    {
+        this.myGraph = myGraph;
+        this.coloredVertexes = vertexesToBeColored;
+        //this.coloredEdges = edgesToBeColored;
         
-        myGraph = MyGraph.getInstance();
+        frameSettings();
         
         graph = new mxGraph();
         toMxGraph();
@@ -56,7 +78,6 @@ public class GraphWindow extends JFrame
     private void frameSettings()
     {
         this.setTitle( "Grafo das cidades do Tocantins" );
-        //this.setAlwaysOnTop( true );
         this.setSize( width, height );
         this.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
         this.setLocationRelativeTo( null );
@@ -92,8 +113,12 @@ public class GraphWindow extends JFrame
         // Adding vertexes here
         for( int i = 0; i < myGraph.getVertexes().size(); i++ )
         {
+            String pathColor = null;
             defaultParent = graph.getDefaultParent();
-            reference = graph.insertVertex( defaultParent, null, myGraph.getVertex( i ).getCityName(), generateRandomNumber( width ), generateRandomNumber( height ), 20, 20 );
+            if( coloredVertexes != null && hasColoredVertex( myGraph.getVertex( i ) ) )
+                pathColor = "fillColor=green";
+            reference = graph.insertVertex( defaultParent, null, myGraph.getVertex( i ).getCityName(), 
+                    generateRandomNumber( width ), generateRandomNumber( height ), 20, 20, "defaultVertex;" + pathColor );
             hash.put( i, reference );
         }
         
@@ -101,7 +126,8 @@ public class GraphWindow extends JFrame
         for( int i = 0; i < myGraph.getEdges().size(); i++ )
         {
             defaultParent = graph.getDefaultParent();
-            graph.insertEdge( defaultParent, null, myGraph.getEdge( i ), hash.get( myGraph.getEdge( i ).getSource() ), hash.get( myGraph.getEdge( i ).getDestination() ) );
+            graph.insertEdge( defaultParent, null, myGraph.getEdge( i ), hash.get( myGraph.getEdge( i ).getSource() ), 
+                    hash.get( myGraph.getEdge( i ).getDestination() ) );
         }
         
         graph.getModel().endUpdate();
@@ -116,5 +142,19 @@ public class GraphWindow extends JFrame
     private int generateRandomNumber( int limit )
     {
         return new Random().nextInt( limit );
+    }
+    
+    /**
+     * 
+     * @param vertex
+     * @return 
+     */
+    private boolean hasColoredVertex( Vertex vertex )
+    {
+        for( Vertex aux : coloredVertexes )
+            if( aux == vertex )
+                return true;
+        
+        return false;
     }
 }
