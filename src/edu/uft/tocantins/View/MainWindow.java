@@ -86,7 +86,6 @@ public class MainWindow extends JFrame
         });
 
         jButton6.setText("Dijkstra Aperfeiçoado");
-        jButton6.setEnabled(false);
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);

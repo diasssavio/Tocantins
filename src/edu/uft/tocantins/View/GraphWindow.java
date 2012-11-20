@@ -114,9 +114,9 @@ public class GraphWindow extends JFrame
         for( int i = 0; i < myGraph.getVertexes().size(); i++ )
         {
             String pathColor = null;
-            defaultParent = graph.getDefaultParent();
             if( coloredVertexes != null && hasColoredVertex( myGraph.getVertex( i ) ) )
                 pathColor = "fillColor=green";
+            defaultParent = graph.getDefaultParent();
             reference = graph.insertVertex( defaultParent, null, myGraph.getVertex( i ).getCityName(), 
                     generateRandomNumber( width ), generateRandomNumber( height ), 20, 20, "defaultVertex;" + pathColor );
             hash.put( i, reference );
