@@ -186,7 +186,14 @@ public class MainWindow extends JFrame
      */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // Add new cities (vertexes) in graph and database
-        new CitiesForm().setVisible( true );
+        try
+        {
+            new CitiesForm().setVisible( true );
+        }
+        catch( SQLException exception )
+        {
+            JOptionPane.showMessageDialog( null, exception.getMessage() );
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
@@ -211,7 +218,6 @@ public class MainWindow extends JFrame
      */
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // Use Dijkstra algorithm to calcule SHORTEST path
-        //JOptionPane.showMessageDialog( null, myGraph.dijkstra( 0, 3 ) );
         new DijkstraForm().setVisible( true );
     }//GEN-LAST:event_jButton5ActionPerformed
 

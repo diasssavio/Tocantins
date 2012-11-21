@@ -76,6 +76,15 @@ public class DijkstraForm extends JFrame
         }
     }
     
+    /**
+     * 
+     */
+    private void calculatePath()
+    {
+        dijkstra.execute( myGraph.getVertex( jComboBox1.getSelectedIndex() - 1 ) );
+        path = dijkstra.getPath( myGraph.getVertex( jComboBox2.getSelectedIndex() - 1 ) );
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -188,10 +197,9 @@ public class DijkstraForm extends JFrame
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Gerar tabela com caminhos do menor percurso
         initializeTable();
+        calculatePath();
         
         int source = jComboBox1.getSelectedIndex() - 1;
-        dijkstra.execute( myGraph.getVertex( source ) );
-        path = dijkstra.getPath( myGraph.getVertex( jComboBox2.getSelectedIndex() - 1 ) );
         
         int sum = 0;
         pathTable.addRow( new Object [] { myGraph.getVertex( source ).getCityName(), 0 } );
@@ -210,6 +218,7 @@ public class DijkstraForm extends JFrame
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // Mostrando o grafo com percurso destacado
+        if( path == null ) calculatePath();
         new GraphWindow( myGraph, path ).setVisible( true );
     }//GEN-LAST:event_jButton2ActionPerformed
 

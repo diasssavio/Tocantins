@@ -2,7 +2,6 @@ package edu.uft.tocantins.Models;
 
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

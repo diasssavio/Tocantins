@@ -12,7 +12,7 @@ import java.util.Collections;
 /**
  * Definição da classe DijkstraAlgorithm
  * Classe que faz a manipulação do algoritmo de dijkstra sobre um grafo
- * @author Savio Dias
+ * @author <a href="mailto:wolfdragon2@gmail.com">Sávio S. Dias</a>
  */
 public class DijkstraAlgorithm
 {
@@ -26,8 +26,8 @@ public class DijkstraAlgorithm
     
     // <------------------- 1.Constructors ------------------->
     /**
-     * 
-     * @param myGraph 
+     * Construtor da classe DijkstraAlgorithm
+     * @param myGraph Grafo a ser utilizado o algoritmo
      */
     public DijkstraAlgorithm( MyGraph myGraph )
     {
