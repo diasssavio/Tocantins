@@ -2,7 +2,6 @@ package edu.uft.tocantins.View;
 
 import edu.uft.tocantins.Models.MyGraph;
 import edu.uft.tocantins.Models.Vertex;
-import edu.uft.tocantins.Models.Edge;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.swing.mxGraphComponent;
 import javax.swing.JFrame;
@@ -27,7 +26,6 @@ public class GraphWindow extends JFrame
     private MyGraph myGraph;
     
     // Graph showing components
-    private final String groundColor = "defaultVertex;fillColor=red";
     private mxGraph graph;
     private mxGraphComponent graphComponent;
     
@@ -125,9 +123,12 @@ public class GraphWindow extends JFrame
         // Adding edges here
         for( int i = 0; i < myGraph.getEdges().size(); i++ )
         {
+            String groundColor = null;
+            if( myGraph.getEdge( i ).getAsfalt() )
+                groundColor = "defaultVertex;fillColor=red";
             defaultParent = graph.getDefaultParent();
             graph.insertEdge( defaultParent, null, myGraph.getEdge( i ), hash.get( myGraph.getEdge( i ).getSource() ), 
-                    hash.get( myGraph.getEdge( i ).getDestination() ) );
+                    hash.get( myGraph.getEdge( i ).getDestination() ), "defaultEdge;" + groundColor );
         }
         
         graph.getModel().endUpdate();

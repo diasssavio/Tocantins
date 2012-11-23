@@ -3,9 +3,8 @@ package edu.uft.tocantins.Models;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Set;
-import java.util.HashSet;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -14,25 +13,18 @@ import java.util.Collections;
  * Classe que faz a manipulação do algoritmo de dijkstra sobre um grafo
  * @author <a href="mailto:wolfdragon2@gmail.com">Sávio S. Dias</a>
  */
-public class DijkstraAlgorithm
+public class DijkstraAlgorithmImproved extends DijkstraAlgorithm
 {
     // <------------------- 0.Variables ------------------->
-    protected final List<Vertex> vertexes;
-    protected final List<Edge> edges;
-    protected Set<Vertex> settledVertexes;
-    protected Set<Vertex> unSettledVertexes;
-    protected Map<Vertex, Vertex> predecessors;
-    protected Map<Vertex, Integer> distance;
     
     // <------------------- 1.Constructors ------------------->
     /**
      * Construtor da classe DijkstraAlgorithm
      * @param myGraph Grafo a ser utilizado o algoritmo
      */
-    public DijkstraAlgorithm( MyGraph myGraph )
+    public DijkstraAlgorithmImproved( MyGraph myGraph )
     {
-        this.vertexes = new ArrayList<Vertex>( myGraph.getVertexes() );
-        this.edges = new ArrayList<Edge>( myGraph.getEdges() );
+        super( myGraph );
     }
     
     // <------------------- 2.Functional methods ------------------->
@@ -40,8 +32,9 @@ public class DijkstraAlgorithm
      * Calcula os caminhos para todos os vertices a partir de source
      * @param source vertice de origem
      */
+    @Override
     public void execute( Vertex source )
-    {
+    {   
         settledVertexes = new HashSet<Vertex>();
         unSettledVertexes = new HashSet<Vertex>();
         distance = new HashMap<Vertex, Integer>();
@@ -83,10 +76,24 @@ public class DijkstraAlgorithm
     private int getDistance( Vertex source, Vertex destination  )
     {
         for( Edge edge : edges )
-            if( edge.getSource() == source.getID() && edge.getDestination() == destination.getID() )
+            if( edge.getSource() == source.getID() && edge.getDestination() == destination.getID() && edge.getAsfalt() )
                 return edge.getDistance();
         
-        throw new RuntimeException( "Aresta não existente" );
+        return Integer.MAX_VALUE;
+    }
+    
+    
+    /**
+     * 
+     * @param destination
+     * @return 
+     */
+    private int getShortestDistance( Vertex destination )
+    {
+        Integer shortest = distance.get( destination );
+        if( shortest == null )
+            return Integer.MAX_VALUE;
+        else return shortest;
     }
     
     /**
@@ -130,24 +137,13 @@ public class DijkstraAlgorithm
         
         return minimum;
     }
-    /**
-     * 
-     * @param destination
-     * @return 
-     */
-    private int getShortestDistance( Vertex destination )
-    {
-        Integer shortest = distance.get( destination );
-        if( shortest == null )
-            return Integer.MAX_VALUE;
-        else return shortest;
-    }
     
     /**
      * 
      * @param destination
      * @return 
      */
+    @Override
     public LinkedList<Vertex> getPath( Vertex destination )
     {
         LinkedList<Vertex> path = new LinkedList<Vertex>();

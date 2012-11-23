@@ -3,6 +3,7 @@ package edu.uft.tocantins.View;
 import edu.uft.tocantins.Models.MyGraph;
 import edu.uft.tocantins.Models.Vertex;
 import edu.uft.tocantins.Models.DijkstraAlgorithm;
+import edu.uft.tocantins.Models.DijkstraAlgorithmImproved;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
@@ -21,19 +22,26 @@ public class DijkstraForm extends JFrame
     private List<Vertex> path;
     
     private DefaultTableModel pathTable;
+    
+    private boolean option;
 
     // <------------------- 1.Constructors ------------------->
     /**
      * Construtor da classe DijkstraForm
+     * @param option se true usa DijkstraAlgorithm, se false usa DijkstraAlgorithmImproved
      */
-    public DijkstraForm()
+    public DijkstraForm( boolean option )
     {
         initComponents();
+        this.option = option;
         this.setLocationRelativeTo( null );
         
         myGraph = MyGraph.getInstance();
         initializeTable();
-        dijkstra = new DijkstraAlgorithm( myGraph );
+        if( option )
+            dijkstra = new DijkstraAlgorithm( myGraph );
+        else
+            dijkstra = new DijkstraAlgorithmImproved( myGraph );
         
         beginCombos();
     }
@@ -44,10 +52,14 @@ public class DijkstraForm extends JFrame
      */
     private void initializeTable()
     {
-        pathTable = new DefaultTableModel( new Object [][] {}, new String [] { "Cidade", "Distância" } ) 
+        pathTable = new DefaultTableModel(
+            new Object [][] { },
+            new String [] { "Cidade", "Distância", "Asfalto" } ) 
         {
-            Class[] types = new Class [] { java.lang.String.class, java.lang.Integer.class };
-            boolean[] canEdit = new boolean [] { false, false };
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] { false, false, false };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
@@ -114,14 +126,14 @@ public class DijkstraForm extends JFrame
 
             },
             new String [] {
-                "Cidade", "Distância"
+                "Cidade", "Distância", "Asfalto"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -135,6 +147,7 @@ public class DijkstraForm extends JFrame
         jScrollPane1.setViewportView(jTable1);
         jTable1.getColumnModel().getColumn(0).setResizable(false);
         jTable1.getColumnModel().getColumn(1).setResizable(false);
+        jTable1.getColumnModel().getColumn(2).setResizable(false);
 
         jLabel2.setText("Cidades por onde passar:");
 
@@ -202,18 +215,27 @@ public class DijkstraForm extends JFrame
         int source = jComboBox1.getSelectedIndex() - 1;
         
         int sum = 0;
-        pathTable.addRow( new Object [] { myGraph.getVertex( source ).getCityName(), 0 } );
+        pathTable.addRow( new Object [] { myGraph.getVertex( source ).getCityName(), 0, false } );
         for( Vertex vertex : path )
         {
             if( vertex.getID() == source ) continue;
             
-            pathTable.addRow( new Object [] { myGraph.getVertex( vertex.getID() ).getCityName(), myGraph.getEdge( source , vertex.getID() ).getDistance() } );
+            pathTable.addRow( new Object [] { myGraph.getVertex( vertex.getID() ).getCityName(), 
+                myGraph.getEdge( source , vertex.getID() ).getDistance(), 
+                myGraph.getEdge( source , vertex.getID() ).getAsfalt() } );
             
             sum += myGraph.getEdge( source , vertex.getID() ).getDistance();
             
             source = vertex.getID();
         }
-        pathTable.addRow( new Object [] { "TOTAL", sum } );
+        pathTable.addRow( new Object [] { "TOTAL", sum, true } );
+        
+        // to define choose of best path between two cities
+        if( !option )
+        {
+            
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
