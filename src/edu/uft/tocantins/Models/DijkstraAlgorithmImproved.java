@@ -76,12 +76,12 @@ public class DijkstraAlgorithmImproved extends DijkstraAlgorithm
     private int getDistance( Vertex source, Vertex destination  )
     {
         for( Edge edge : edges )
-            if( edge.getSource() == source.getID() && edge.getDestination() == destination.getID() && edge.getAsfalt() )
+            if( edge.getSource() == source.getID() && edge.getDestination() == destination.getID() 
+                    && edge.getAsfalt() )
                 return edge.getDistance();
         
         return Integer.MAX_VALUE;
     }
-    
     
     /**
      * 

@@ -5,6 +5,7 @@ import edu.uft.tocantins.Models.Vertex;
 import edu.uft.tocantins.Models.DijkstraAlgorithm;
 import edu.uft.tocantins.Models.DijkstraAlgorithmImproved;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 
@@ -89,7 +90,7 @@ public class DijkstraForm extends JFrame
     }
     
     /**
-     * 
+     * Calcula o menor/melhor caminho entre dois vertices
      */
     private void calculatePath()
     {
@@ -212,9 +213,9 @@ public class DijkstraForm extends JFrame
         initializeTable();
         calculatePath();
         
-        int source = jComboBox1.getSelectedIndex() - 1;
-        
+        // Menor caminho asfaltada
         int sum = 0;
+        int source = jComboBox1.getSelectedIndex() - 1;
         pathTable.addRow( new Object [] { myGraph.getVertex( source ).getCityName(), 0, false } );
         for( Vertex vertex : path )
         {
@@ -230,12 +231,33 @@ public class DijkstraForm extends JFrame
         }
         pathTable.addRow( new Object [] { "TOTAL", sum, true } );
         
-        // to define choose of best path between two cities
+        // Decidindo melhor rota p/ usuario
         if( !option )
         {
+            // Menor caminho geral
+            dijkstra = new DijkstraAlgorithm( myGraph );
+            dijkstra.execute( myGraph.getVertex( jComboBox1.getSelectedIndex() - 1 ) );
+            List<Vertex> shortPath = dijkstra.getPath( myGraph.getVertex( jComboBox2.getSelectedIndex() - 1 ) );
             
+            int sum2 = 0;
+            int source2 = jComboBox1.getSelectedIndex() - 1;
+            for( Vertex vertex : shortPath )
+            {
+                if( vertex.getID() == source2 ) continue;
+                sum2 += myGraph.getEdge( source2 , vertex.getID() ).getDistance();
+                source2 = vertex.getID();
+            }
+            
+            // Mostrando escolha a ser tomada
+            String out = null;
+            if( sum == sum2 )
+                out = "Caminhos iguais";
+            else if( (double)sum2 < sum * 0.25 )
+                out = "Optar pelo menor caminho geral";
+            else
+                out = "Optar pelo menor caminho asfaltado";
+            JOptionPane.showMessageDialog( null, out );
         }
-        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

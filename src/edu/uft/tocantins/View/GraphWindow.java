@@ -34,7 +34,6 @@ public class GraphWindow extends JFrame
     
     // Lists of cells to be colored
     private List<Vertex> coloredVertexes;
-    //private List<Edge> coloredEdges;
     
     // <------------------- 1.Constructors ------------------->
     /**
@@ -123,12 +122,12 @@ public class GraphWindow extends JFrame
         // Adding edges here
         for( int i = 0; i < myGraph.getEdges().size(); i++ )
         {
-            String groundColor = null;
+            /*String groundColor = null;
             if( myGraph.getEdge( i ).getAsfalt() )
-                groundColor = "defaultVertex;fillColor=red";
+                groundColor = "defaultVertex;fillColor=red";*/
             defaultParent = graph.getDefaultParent();
             graph.insertEdge( defaultParent, null, myGraph.getEdge( i ), hash.get( myGraph.getEdge( i ).getSource() ), 
-                    hash.get( myGraph.getEdge( i ).getDestination() ), "defaultEdge;" + groundColor );
+                    hash.get( myGraph.getEdge( i ).getDestination() ) );
         }
         
         graph.getModel().endUpdate();
